@@ -45,12 +45,10 @@ func (s *SysLogger) Write(str string) (string, error) {
 	return newStr, nil
 }
 
-type Decorator func(string)
-
-func DecoratorFunc(d Decorator) Decorator {
+func DecoratorFunc(f func(string)) func(string) {
 	return func(str string) {
 		fmt.Println("Before decorator run on", str)
-		d(str)
+		f(str)
 		fmt.Println("After decorator run on", str)
 	}
 }
@@ -66,9 +64,9 @@ func main() {
 	fmt.Println(result)
 
 	// Decorator functions
-	var f Decorator = func(str string) {
+	f := func(str string) {
 		fmt.Printf("DECORATED[%s]\n", str)
 	}
-	n := DecoratorFunc(f)
-	n("Tree")
+	decoratedF := DecoratorFunc(f)
+	decoratedF("Tree")
 }
