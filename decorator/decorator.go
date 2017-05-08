@@ -56,7 +56,7 @@ func DecoratorFunc(d Decorator) Decorator {
 }
 
 func main() {
-	// Decorator interfaces
+	// Decorator types 
 	l := &SysLogger{&FileLogger{&STDOUTLogger{}}}
 	str := "This is a really important message!"
 	result, err := l.Write(str)
